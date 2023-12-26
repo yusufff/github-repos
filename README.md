@@ -1,30 +1,30 @@
-# React + TypeScript + Vite
+# GitHub Repo Search
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Search repos on GitHub for your favorite languages, and sort them by stars, forks or last update date.
 
-Currently, two official plugins are available:
+Try it out: https://github-repos-ui.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Tech Stack
 
-## Expanding the ESLint configuration
+- Vite
+- React
+- Typescript
+- TanStack Query
+- TanStack Table
+- shadcn/ui
+- Tailwind
+- Radix UI
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## FAQ
 
-- Configure the top-level `parserOptions` property like this:
+### Why TanStack Query and not something like Redux?
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+> The purpose of this application is to display the server-side data. Pagination, sorting, filtering, all of that are done on the server-side. For this type of applications, we don't need to manage the client-side state ourselves. Infact, to avoid unnecessary overhead, we shouldn't. TanStack Query is of the best solutions for this kind of state management. Alternatives are SWR or RTK Query.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Why Vite and not something like NextJS?
+
+> Simply put; faster development. If this was a real production project, I would probably use NextJS.
+
+### Why shadcn/ui and not something like Mantine?
+
+> Fully featured component libraries like Mantine, MUI, and Bootstrap are great when you want to try something, don't really care about owning the design, and will throw it away after you are done. I'm not particularly eager to use them because I care about owning the design and shadcn/ui is an amazing solution for good predefined design and infinite extensibility.
