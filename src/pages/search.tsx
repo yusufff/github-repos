@@ -8,6 +8,8 @@ import { useSearchRepos } from "@/services/queries";
 import { PaginationState, SortingState } from "@tanstack/react-table";
 
 export default function Search() {
+  // I like to use URL query params for state management
+  // so that the user can easily share the current state
   const [params, setParams] = useURLQueryState(
     z.object({
       page: z.coerce.number().min(1).optional().default(1),
@@ -24,7 +26,8 @@ export default function Search() {
         .default("javascript")
         .catch("javascript"),
       q: z.coerce.string().optional().default("react"),
-    })
+    }),
+    { persistInLocalStorage: true }
   );
 
   const {
