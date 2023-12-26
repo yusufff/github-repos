@@ -2,7 +2,6 @@ import {
   ArrowDownIcon,
   ArrowUpIcon,
   CaretSortIcon,
-  ResetIcon,
 } from "@radix-ui/react-icons";
 import { Column } from "@tanstack/react-table";
 
@@ -12,7 +11,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
@@ -58,11 +56,6 @@ export function SortableHeader<TData, TValue>({
           <DropdownMenuItem onClick={() => column.toggleSorting(true)}>
             <ArrowDownIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
             Desc
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => column.clearSorting()}>
-            <ResetIcon className="mr-2 h-3.5 w-3.5 text-muted-foreground/70" />
-            Reset
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
