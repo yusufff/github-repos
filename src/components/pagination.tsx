@@ -19,11 +19,15 @@ interface PaginationProps<TData> {
   table: Table<TData>;
 }
 
-export function Pagination<TData>({ table }: PaginationProps<TData>) {
+export function Pagination<TData>({
+  table,
+  itemCount,
+}: PaginationProps<TData> & { itemCount: number }) {
   return (
     <div className="flex items-center justify-between px-2">
-      <div className="flex-1 text-sm text-muted-foreground">
-        {table.getFilteredRowModel().rows.length} row(s) selected.
+      <div className="text-sm text-muted-foreground">
+        Total {new Intl.NumberFormat().format(itemCount)} repo
+        {itemCount > 1 ? "s" : ""} listed
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
@@ -46,9 +50,12 @@ export function Pagination<TData>({ table }: PaginationProps<TData>) {
             </SelectContent>
           </Select>
         </div>
-        <div className="flex w-[100px] items-center justify-center text-sm font-medium">
-          Page {table.getState().pagination.pageIndex + 1} of{" "}
-          {table.getPageCount()}
+        <div className="flex w-[100px] items-center justify-center text-sm font-medium whitespace-nowrap">
+          Page{" "}
+          {new Intl.NumberFormat().format(
+            table.getState().pagination.pageIndex + 1
+          )}{" "}
+          of {new Intl.NumberFormat().format(table.getPageCount())}
         </div>
         <div className="flex items-center space-x-2">
           <Button

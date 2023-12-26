@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 
 import { searchRepos } from "@/services/gh";
 
@@ -11,7 +11,7 @@ export function useSearchRepos({
   page = 1,
 }: {
   query: string;
-  lang?: "javascript" | "scale" | "python";
+  lang?: "javascript" | "scala" | "python";
   sort?: "stars" | "forks" | "updated";
   order?: "desc" | "asc";
   per_page?: number;
@@ -20,6 +20,7 @@ export function useSearchRepos({
   return useQuery({
     queryKey: ["searchRepos", query, lang, sort, order, per_page, page],
     queryFn: () => searchRepos({ query, lang, sort, order, per_page, page }),
-    staleTime: 5000,
+    staleTime: 10000,
+    placeholderData: keepPreviousData,
   });
 }

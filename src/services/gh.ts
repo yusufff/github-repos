@@ -39,7 +39,7 @@ export function searchRepos({
   page = 1,
 }: {
   query: string;
-  lang?: "javascript" | "scale" | "python";
+  lang?: "javascript" | "scala" | "python";
   sort?: "stars" | "forks" | "updated";
   order?: "desc" | "asc";
   per_page?: number;
