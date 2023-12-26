@@ -46,6 +46,12 @@ export function searchRepos({
   page?: number;
 }) {
   return myOctokit.search.repos({
+    // GitHub API search results are sometimes inconsistent
+    // This due to Github's limits about long running queries
+    // https://stackoverflow.com/a/56268302
+    // https://docs.github.com/en/rest/reference/search#timeouts-and-incomplete-results
+    // To improve the results, we can add a qualifier like `stars:>1600`
+    // q: `${query} language:${lang} stars:>1600`,
     q: `${query} language:${lang}`,
     sort,
     order,
