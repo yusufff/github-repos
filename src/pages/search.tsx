@@ -107,7 +107,7 @@ export default function Search() {
             searchResult?.data?.total_count
               ? Math.min(
                   Math.ceil(searchResult.data.total_count / params.per_page),
-                  1000 / params.per_page
+                  Math.ceil(1000 / params.per_page)
                 )
               : 0
           }
