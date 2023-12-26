@@ -28,12 +28,6 @@ Install the packages:
 
 ```bash
 yarn install
-# or
-npm install
-# or
-pnpm install
-# or
-bun install
 ```
 
 Create the .env file and add your [Github Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token):
@@ -46,12 +40,6 @@ Run the application:
 
 ```bash
 yarn dev
-# or
-npm run dev
-# or
-pnpm run dev
-# or
-bun dev
 ```
 
 ## FAQ
