@@ -24,14 +24,14 @@ export function Pagination<TData>({
   itemCount,
 }: PaginationProps<TData> & { itemCount: number }) {
   return (
-    <div className="flex items-center justify-between px-2">
+    <div className="flex flex-col sm:flex-row gap-2 items-center justify-between px-2">
       <div className="text-sm text-muted-foreground">
         Total {new Intl.NumberFormat().format(itemCount)} repo
         {itemCount > 1 ? "s" : ""} listed
       </div>
       <div className="flex items-center space-x-6 lg:space-x-8">
         <div className="flex items-center space-x-2">
-          <p className="text-sm font-medium">Rows per page</p>
+          <p className="text-sm font-medium hidden xs:block">Rows per page</p>
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={(value) => {

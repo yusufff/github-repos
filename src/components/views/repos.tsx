@@ -24,9 +24,14 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { SortableHeader } from "@/components/sortable-header";
 import { Pagination } from "@/components/pagination";
 
-import { RepoResult } from "@/services/gh";
+import useActiveBreakpointValue, {
+  Breakpoint,
+} from "@/hooks/use-active-breakpoint-value";
 
-const columns: ColumnDef<RepoResult>[] = [
+import { RepoResult } from "@/services/gh";
+import { breakpoints } from "../../hooks/use-active-breakpoint-value";
+
+const columns: (ColumnDef<RepoResult> & { showOn?: Breakpoint })[] = [
   {
     accessorKey: "id",
     header: "ID",
@@ -37,6 +42,7 @@ const columns: ColumnDef<RepoResult>[] = [
         </a>
       </Button>
     ),
+    showOn: "lg",
   },
   {
     accessorKey: "full_name",
@@ -67,6 +73,7 @@ const columns: ColumnDef<RepoResult>[] = [
   {
     accessorKey: "description",
     header: "Description",
+    showOn: "lg",
   },
   {
     id: "stars",
@@ -131,13 +138,19 @@ export function RepoTable({
   pageSize: number;
   onPaginationChange: (state: PaginationState) => void;
 }) {
+  const activeBreakpointValue = useActiveBreakpointValue();
   const table = useReactTable({
     data,
-    columns,
+    columns: columns.filter(
+      (colDef) =>
+        !colDef.showOn || activeBreakpointValue >= breakpoints[colDef.showOn]
+    ),
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
     pageCount,
     onPaginationChange: (updater) => {
+      // onPaginationChange works like setState,
+      // it can take an updater function or an object so we need to handle both
       const newState =
         typeof updater === "function"
           ? updater({ pageSize, pageIndex })
@@ -145,6 +158,8 @@ export function RepoTable({
       onPaginationChange(newState);
     },
     onSortingChange: (updater) => {
+      // onSortingChange works like setState,
+      // it can take an updater function or an object so we need to handle both
       const newState =
         typeof updater === "function" ? updater(sorting) : updater;
       onSortingChange(newState);
@@ -161,20 +176,30 @@ export function RepoTable({
 
   return (
     <div>
-      <div className="flex items-center justify-between py-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between py-4 gap-4">
         <Input
           autoFocus
           placeholder="Search repositories..."
           value={searchQuery ?? ""}
           onChange={(event) => onSearchQueryChange(event.target.value)}
           onBlur={onSearchQueryBlur}
-          className="max-w-sm"
+          className="w-full sm:max-w-sm"
         />
-        <Tabs value={language} onValueChange={onLanguageChange}>
-          <TabsList>
-            <TabsTrigger value="javascript">JavaScript</TabsTrigger>
-            <TabsTrigger value="scala">Scala</TabsTrigger>
-            <TabsTrigger value="python">Python</TabsTrigger>
+        <Tabs
+          value={language}
+          onValueChange={onLanguageChange}
+          className="w-full sm:w-auto"
+        >
+          <TabsList className="w-full sm:w-auto">
+            <TabsTrigger className="flex-1 sm:flex-auto" value="javascript">
+              JavaScript
+            </TabsTrigger>
+            <TabsTrigger className="flex-1 sm:flex-auto" value="scala">
+              Scala
+            </TabsTrigger>
+            <TabsTrigger className="flex-1 sm:flex-auto" value="python">
+              Python
+            </TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
