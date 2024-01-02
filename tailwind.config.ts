@@ -1,3 +1,4 @@
+import defaultTheme from "tailwindcss/defaultTheme";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -11,6 +12,7 @@ export default {
   prefix: "",
   theme: {
     screens: {
+      ...defaultTheme.screens,
       xs: "512px",
     },
     container: {
